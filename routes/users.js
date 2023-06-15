@@ -1,7 +1,6 @@
-const router = require('express').Router()
-const {getCurrentUser, updateUser} = require("../controllers/users");
-const {celebrate, Segments, Joi} = require("celebrate");
-
+const router = require('express').Router();
+const { celebrate, Segments, Joi } = require('celebrate');
+const { getCurrentUser, updateUser } = require('../controllers/users');
 
 router.get('/me', getCurrentUser);
 

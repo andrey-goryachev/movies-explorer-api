@@ -1,7 +1,6 @@
-const router = require('express').Router()
-const {celebrate, Segments, Joi} = require("celebrate");
-const {getMovies, createMovie, deleteMovie} = require("../controllers/movies");
-
+const router = require('express').Router();
+const { celebrate, Segments, Joi } = require('celebrate');
+const { getMovies, createMovie, deleteMovie } = require('../controllers/movies');
 
 router.get('/', getMovies);
 router.post('/', celebrate({
@@ -41,9 +40,9 @@ router.post('/', celebrate({
       .required(),
     movieId: Joi
       .number()
-      .required()
+      .required(),
   }),
-}), createMovie)
+}), createMovie);
 
 router.delete('/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -54,6 +53,5 @@ router.delete('/:id', celebrate({
       .max(24),
   }),
 }), deleteMovie);
-
 
 module.exports = router;

@@ -1,9 +1,9 @@
-const router = require('express').Router()
-const {celebrate, Segments, Joi} = require("celebrate");
-const auth = require('../middlewares/auth')
-const {login, createUser} = require("../controllers/users");
-const userRouter = require('./users')
-const moviesRouter = require('./movies')
+const router = require('express').Router();
+const { celebrate, Segments, Joi } = require('celebrate');
+const auth = require('../middlewares/auth');
+const { login, createUser } = require('../controllers/users');
+const userRouter = require('./users');
+const moviesRouter = require('./movies');
 const incorrect = require('./incorrect');
 
 router.post('/signin', celebrate({
@@ -31,8 +31,8 @@ router.post('/signup', celebrate({
   }),
 }), createUser);
 
-router.use('/users', auth, userRouter)
-router.use('/movies', auth, moviesRouter)
+router.use('/users', auth, userRouter);
+router.use('/movies', auth, moviesRouter);
 router.use('*', incorrect);
 
 module.exports = router;

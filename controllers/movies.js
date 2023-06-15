@@ -1,15 +1,14 @@
-const Movie = require('../models/movie')
-const {Joi} = require("celebrate");
-const {NotOwnerEntityError, NotFoundError} = require("../errors/errors");
+const Movie = require('../models/movie');
+const { NotOwnerEntityError, NotFoundError } = require('../errors/errors');
 
 const getMovies = (req, res, next) => {
-  Movie.find({owner: req.user._id})
+  Movie.find({ owner: req.user._id })
     .then((movies) => res.send(movies))
-    .catch(next)
-}
+    .catch(next);
+};
 
 const createMovie = (req, res, next) => {
-  const owner = req.user._id
+  const owner = req.user._id;
   const {
     country,
     director,
@@ -21,8 +20,8 @@ const createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    movieId
-  } = req.body
+    movieId,
+  } = req.body;
   Movie.create({
     country,
     director,
@@ -35,10 +34,10 @@ const createMovie = (req, res, next) => {
     nameEN,
     thumbnail,
     movieId,
-    owner
+    owner,
   }).then((movie) => res.status(201).send(movie))
-    .catch(next)
-}
+    .catch(next);
+};
 
 const deleteMovie = (req, res, next) => {
   const movieId = req.params.id;
@@ -48,16 +47,16 @@ const deleteMovie = (req, res, next) => {
     })
     .then((movie) => {
       if (movie.owner._id.valueOf() !== req.user._id) {
-        throw new NotOwnerEntityError('Вы не владелец этого фильма')
+        throw new NotOwnerEntityError('Вы не владелец этого фильма');
       }
       return movie.deleteOne()
-        .then(() => res.send({message: 'Фильм удален'}))
+        .then(() => res.send({ message: 'Фильм удален' }));
     })
-    .catch(next)
-}
+    .catch(next);
+};
 
 module.exports = {
   getMovies,
   createMovie,
-  deleteMovie
-}
+  deleteMovie,
+};
