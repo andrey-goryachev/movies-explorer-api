@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 const router = require('./routes');
 const { handleErrors } = require('./errors/errors');
@@ -16,6 +17,7 @@ mongoose.connect(DB_ADDRESS, { autoIndex: true });
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(requestLogger);
 app.use(router);

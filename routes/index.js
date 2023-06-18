@@ -4,8 +4,7 @@ const { login, createUser } = require('../controllers/users');
 const userRouter = require('./users');
 const moviesRouter = require('./movies');
 const incorrect = require('./incorrect');
-const {validationSignIn, validationSignUp} = require("../utils/validation");
-
+const { validationSignIn, validationSignUp } = require('../utils/validation');
 
 router.post('/signin', validationSignIn, login);
 

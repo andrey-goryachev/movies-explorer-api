@@ -1,5 +1,4 @@
-const {celebrate, Segments, Joi} = require("celebrate");
-
+const { celebrate, Segments, Joi } = require('celebrate');
 
 const validationSignIn = celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -9,7 +8,7 @@ const validationSignIn = celebrate({
     password: Joi.string()
       .required(),
   }),
-})
+});
 
 const validationSignUp = celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -24,7 +23,7 @@ const validationSignUp = celebrate({
       .min(2)
       .max(30),
   }),
-})
+});
 
 const validationUpdateUser = celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -36,7 +35,7 @@ const validationUpdateUser = celebrate({
       .min(2)
       .max(30),
   }),
-})
+});
 
 const validationCreateMovie = celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -77,7 +76,7 @@ const validationCreateMovie = celebrate({
       .number()
       .required(),
   }),
-})
+});
 
 const validationDeleteMovie = celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -87,12 +86,12 @@ const validationDeleteMovie = celebrate({
       .min(24)
       .max(24),
   }),
-})
+});
 
 module.exports = {
   validationSignIn,
   validationSignUp,
   validationUpdateUser,
   validationCreateMovie,
-  validationDeleteMovie
-}
+  validationDeleteMovie,
+};
