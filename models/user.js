@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema(
       maxlength: 30,
     },
   },
+  { toObject: { useProjection: true }, toJSON: { useProjection: true } },
 );
 
 // eslint-disable-next-line func-names
