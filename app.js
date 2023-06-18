@@ -7,15 +7,13 @@ const { errors } = require('celebrate');
 const router = require('./routes');
 const { handleErrors } = require('./errors/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-const {
-  DB_ADDRESS = 'mongodb://127.0.0.1:27017/bitfilmsdb',
-  PORT = 3000,
-} = process.env;
+const { DB_ADDRESS, PORT } = require('./utils/consts');
+const { limiter } = require('./middlewares/limiter');
 
 mongoose.connect(DB_ADDRESS, { autoIndex: true });
 const app = express();
 
+app.use(limiter);
 app.use(cors());
 app.use(helmet());
 app.use(express.json());

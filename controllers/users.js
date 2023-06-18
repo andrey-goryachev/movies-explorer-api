@@ -2,11 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { secretKey } = require('../config');
-
-const {
-  NODE_ENV = 'dev',
-  JWT_SECRET,
-} = process.env;
+const { NODE_ENV, JWT_SECRET } = require('../utils/consts');
 
 const login = (req, res, next) => {
   const { email, password } = req.body;

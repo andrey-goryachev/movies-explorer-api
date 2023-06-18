@@ -1,12 +1,15 @@
 // eslint-disable-next-line max-classes-per-file
 const mongoose = require('mongoose');
-
-const INCORRECT_DATA_ERROR_CODE = 400;
-const NOT_AUTH_ERROR_CODE = 401;
-const NOT_OWNER_ENTITY_ERROR_CODE = 403;
-const NOT_FOUND_CODE = 404;
-const ALREADY_EXISTS_CODE = 409;
-const DEFAULT_ERROR_CODE = 500;
+const {
+  NOT_FOUND_CODE,
+  NOT_AUTH_ERROR_CODE,
+  NOT_OWNER_ENTITY_ERROR_CODE,
+  INCORRECT_DATA_ERROR_CODE,
+  ALREADY_EXISTS_CODE,
+  DEFAULT_ERROR_CODE,
+  INCORRECT_DATA_ERROR_CODE_MESSAGE,
+  ALREADY_EXISTS_CODE_MESSAGE,
+} = require('../utils/consts');
 
 class CustomError extends Error {
   // eslint-disable-next-line no-useless-constructor
@@ -14,6 +17,7 @@ class CustomError extends Error {
     super(message);
   }
 }
+
 class NotFoundError extends CustomError {
   constructor(message) {
     super(message);
@@ -41,14 +45,14 @@ const handleErrors = (err, req, res, next) => {
     return;
   }
   if (err instanceof mongoose.Error.ValidationError || err instanceof mongoose.Error.CastError) {
-    res.status(INCORRECT_DATA_ERROR_CODE).send({ message: 'Переданы некорректные данные в методы создания, удаления карточки, пользователя, обновления аватара пользователя или профиля' });
+    res.status(INCORRECT_DATA_ERROR_CODE).send({ message: INCORRECT_DATA_ERROR_CODE_MESSAGE });
     return;
   }
   if (err.code === 11000) {
-    res.status(ALREADY_EXISTS_CODE).send({ message: 'Пользователь с такой почтой уже существует' });
+    res.status(ALREADY_EXISTS_CODE).send({ message: ALREADY_EXISTS_CODE_MESSAGE });
     return;
   }
-  res.status(DEFAULT_ERROR_CODE).send({ message: `Произошла ошибка: ${err.message}` });
+  res.status(DEFAULT_ERROR_CODE).send({ message: err.message });
 
   next();
 };
