@@ -13,11 +13,11 @@ const { limiter } = require('./middlewares/limiter');
 mongoose.connect(DB_ADDRESS, { autoIndex: true });
 const app = express();
 
+app.use(requestLogger);
 app.use(limiter);
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(requestLogger);
 app.use(router);
 app.use(errorLogger);
 app.use(errors());
